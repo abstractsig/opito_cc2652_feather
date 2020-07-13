@@ -10,7 +10,7 @@
  *                        |12 DIO23         12 |
  *                        |11 DIO24    EN   11 |
  *                        |10 DIO25    VIN  10 |
- *                        | 9 DIO26    DIO13 9 |
+ *                        | 9 DIO26    DIO13 9 |  (Not available if SPI flash mounted)
  *                        | 8 PGA0     DIO12 8 |
  *                        | 7 PGA1     DIO9  7 |
  *                        | 6 DIO22    DIO8  6 |
@@ -67,6 +67,42 @@ void io_board_panic (io_t*,int);
 // CH340 UART
 #define USB_UART_TX_DIO      IOID_3
 #define USB_UART_RX_DIO      IOID_2
+
+
+#define MX25R3235_MISO def_cc2652_io_alternate_pin ( \
+		IOID_9, \
+		IO_PIN_DIRECTION_INPUT, \
+		IO_PIN_MODE_NORMAL, \
+		IO_PIN_PULL_UP, \
+		IO_PIN_ACTIVE_LEVEL_LOW, \
+		IOC_PORT_MCU_SSI0_RX \
+	)
+
+#define MX25R3235_MOSI def_cc2652_io_alternate_pin ( \
+		IOID_8, \
+		IO_PIN_DIRECTION_OUTPUT, \
+		IO_PIN_MODE_NORMAL, \
+		IO_PIN_NO_PULL, \
+		IO_PIN_ACTIVE_LEVEL_HIGH, \
+		IOC_PORT_MCU_SSI0_TX \
+	)
+
+#define MX25R3235_CLOCK def_cc2652_io_alternate_pin ( \
+		IOID_12, \
+		IO_PIN_DIRECTION_OUTPUT, \
+		IO_PIN_MODE_NORMAL, \
+		IO_PIN_NO_PULL, \
+		IO_PIN_ACTIVE_LEVEL_HIGH, \
+		IOC_PORT_MCU_SSI0_CLK \
+	)
+
+#define MX25R3235_SLAVE_SELECT def_cc2652_io_output_pin (\
+        IOID_7,\
+        IO_PIN_ACTIVE_LEVEL_LOW,\
+        IO_PIN_LEVEL_INACTIVE\
+    )
+
+#define MX25R3235_MAXIMUM_SPEED	33000000
 
 void    initialise_io_board (io_t*);
 
